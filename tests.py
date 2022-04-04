@@ -3,12 +3,17 @@ from unittest import mock, main, TestCase
 import requests
 
 
-# inside test url - switcharoo - this will be the 'bad' example given to testtrivia, e.g. "https://opentdb.com/api.php"
+# for use inside test trivia -  e.g. "https://opentdb.com/api.php"
 def mock_API_call(*args):
+    # it will only return data if it matched the url, which starts with "https://opentdb....
     if args[0].startswith("https://opentdb.com/api.php"):
+        # if it matches the url run mock_response
         mock_response = requests.Response()
+        # ...run response.header, which is the title for my json questions
         mock_response.headers = {'Content-Type': 'application/json'}
+        # run status code and check it's working, so - 200
         mock_response.status_code = 200
+        # run to check that the questions are in this format. we are testing for 2
         type(mock_response).json = mock.Mock(return_value={
             'results': [{'question': 'what is your name?', 'correct_answer': 'ellie'},
                         {'question': 'what is your age?', 'correct_answer': 'OLD'}]
