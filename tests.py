@@ -4,6 +4,7 @@ import requests
 
 
 # for use inside test trivia -  e.g. "https://opentdb.com/api.php"
+# args because we dont know how many arguments  will be incl in the function
 def mock_API_call(*args):
     # it will only return data if it matched the url, which starts with "https://opentdb....
     if args[0].startswith("https://opentdb.com/api.php"):
