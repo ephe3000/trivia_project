@@ -1,15 +1,36 @@
 import unittest
 
 from trivia import get_questions
-from unittest.mock import patch
-
-class
-def test_url():
-    with patch('trivia.requests.get') as mocked_get:
-        mocked_get.assert_called_with("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
+from unittest import mock, main, TestCase
+import requests
 
 
-if __main__ -- '__main__':
+# inside test url - switcharoo - this will be the 'bad' example given to testtrivia, e.g. "https://opentdb.com/api.php"
+def mock_API_call(*args):
+    if args[0].startswith("https://opentdb.com/api.php"):
+        mock_response = requests.Response()
+        mock_response.headers = {'Content-Type': 'application/json'}
+        mock_response.status_code = 200
+        type(mock_response).json = mock.Mock(return_value={
+            'results': [{'question': 'what is your name?', 'correct_answer': 'ellie'},
+                        {'question': 'what is your age?', 'correct_answer': 'OLD'}]
+        })
+        # mock_response._content = "{'results': [{'question': 'what is your name?', 'correct_answer': 'ellie'}, {'question': 'what is your age?', 'correct_answer': 'OLD'}]}"
+        # b as bytes
+        return mock_response
+# cmnd click to look at response
+
+class TestTrivia(TestCase):
+    def test_url(self):
+        # with a mock value hello
+        with mock.patch('requests.get', side_effect=mock_API_call) as mocked_get:
+            print(get_questions())
+            # mocked_get.assert_called_with("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
+
+
+
+
+if __name__ == '__main__':
     main()
 
 

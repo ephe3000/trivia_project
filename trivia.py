@@ -48,7 +48,7 @@ def main():
 
     print('congratulations, your score was ' + str(count))
 
-main()
+# main()
 
 
 # ---------------------------------------
