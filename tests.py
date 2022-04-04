@@ -1,5 +1,3 @@
-import unittest
-
 from trivia import get_questions
 from unittest import mock, main, TestCase
 import requests
@@ -15,19 +13,15 @@ def mock_API_call(*args):
             'results': [{'question': 'what is your name?', 'correct_answer': 'ellie'},
                         {'question': 'what is your age?', 'correct_answer': 'OLD'}]
         })
-        # mock_response._content = "{'results': [{'question': 'what is your name?', 'correct_answer': 'ellie'}, {'question': 'what is your age?', 'correct_answer': 'OLD'}]}"
-        # b as bytes
         return mock_response
-# cmnd click to look at response
+
 
 class TestTrivia(TestCase):
     def test_url(self):
-        # with a mock value hello
-        with mock.patch('requests.get', side_effect=mock_API_call) as mocked_get:
-            print(get_questions())
-            # mocked_get.assert_called_with("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
-
-
+        with mock.patch('requests.get', side_effect=mock_API_call):
+            questions = get_questions()
+            # assert that there will be 2 questions because we put 2 fake questions in the mock(line 13)
+            self.assertEqual(len(questions), 2)
 
 
 if __name__ == '__main__':
