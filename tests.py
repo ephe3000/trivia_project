@@ -1,12 +1,20 @@
-import trivia
+import unittest
 
+from trivia import get_questions
+from unittest.mock import patch
 
+class
 def test_url():
-    assert trivia.response == "https://opentdb.com/api.php?amount=10&category=20&type=boolean"
+    with patch('trivia.requests.get') as mocked_get:
+        mocked_get.assert_called_with("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
 
 
-def player_answer():
-    assert trivia.player_answer(bool)
+if __main__ -- '__main__':
+    main()
+
+
+# def player_answer():
+#     assert trivia.player_answer(bool)
 
 
 # FUNCTION QUIZ TESTS

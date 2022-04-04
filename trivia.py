@@ -1,30 +1,54 @@
+import unittest
+
 import requests
 import json
 
+
  # get statments
-response = requests.get("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
-questions = response.json()
-my_trivia = questions['results']
-count = 0
-
-for question in my_trivia:
-    print("a trivia question:", question['question'])
-
-    player_answer = input('True or False: ')
-    answer = question['correct_answer']
-
-    # set score
-    if player_answer.lower() == answer.lower():
-        count += 1
-    print(count)
-
-print('congratulations, your score was ' + str(count))
-
-
-
+# response = requests.get("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
+# questions = response.json()
+# my_trivia = questions['results']
+#
+# count = 0
+#
+# for question in my_trivia:
+#     print("a trivia question:", question['question'])
+#
+#     player_answer = input('True or False: ')
+#     answer = question['correct_answer']
+#
+#     # set score
+#     if player_answer.lower() == answer.lower():
+#         count += 1
+#     print(count)
+#
+# print('congratulations, your score was ' + str(count))
 
 
+def get_questions():
+    response = requests.get("https://opentdb.com/api.php?amount=10&category=20&type=boolean")
+    questions = response.json()
+    return questions['results']
 
+
+def main():
+    my_trivia = get_questions()
+    count = 0
+
+    for question in my_trivia:
+        print("a trivia question:", question['question'])
+
+        player_answer = input('True or False: ')
+        answer = question['correct_answer']
+
+        # set score
+        if player_answer.lower() == answer.lower():
+            count += 1
+        print(count)
+
+    print('congratulations, your score was ' + str(count))
+
+main()
 
 
 # ---------------------------------------
